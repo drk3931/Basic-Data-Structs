@@ -1,5 +1,7 @@
 package com.drk3931.cs313.proj1;
-
+/*
+ * @Author Adolfas Lapsys
+ */
 class Task implements Comparable<Task> {
 	public int id;
 	public int priority;

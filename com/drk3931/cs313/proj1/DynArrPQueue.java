@@ -1,3 +1,9 @@
+/*
+ * @Deepak Khemraj
+ * drk3931@gmail.com, github.com/drk3931
+ * Professor Lapsys, CS313 Project 1
+ */
+
 package com.drk3931.cs313.proj1;
 
 import java.util.Arrays;
@@ -26,7 +32,7 @@ public class DynArrPQueue<T extends Comparable<T>> implements PriorityQueue<T> {
 	@Override
 	public void enqueue(T item) {
 		size++; 
-		if(size > capacity)
+		if(size == capacity)
 		{
 			grow();
 		}
@@ -40,6 +46,7 @@ public class DynArrPQueue<T extends Comparable<T>> implements PriorityQueue<T> {
 		for(int i = 0; i < size; i++)
 		{
 			
+			
 			int s = ((Task)dynArray[i]).priority;
 			System.out.println(s);
 			
@@ -48,31 +55,44 @@ public class DynArrPQueue<T extends Comparable<T>> implements PriorityQueue<T> {
 
 	@Override
 	public T peek() {
-		// TODO Auto-generated method stub
-		return null;
+		return dynArray[0];
 	}
 
 	@Override
 	public T dequeue() {
 		
+		if(isEmpty())
+		{
+			return null;
+		}
+		
 		if(needsSorting)
 		{
-			Arrays.sort(dynArray);
+			try
+			{
+				Arrays.sort(dynArray);
+			}
+			catch (Exception e) //transitive comparison problem
+			{}
 			needsSorting = false;
 		}
-		return dynArray[0];
+		T tmp = dynArray[0];
+		
+		T[] newArr =(T[]) new Comparable[capacity - 1];
+		System.arraycopy(dynArray, 1, newArr, 0, dynArray.length -2);
+		
+		return tmp;
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return size;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return dynArray[0] == null;
 	}
 
 }
